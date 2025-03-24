@@ -1,0 +1,12 @@
+CREATE TABLE pokemon_table(
+    id	 SERIAL PRIMARY KEY NOT NULL,
+    dex_number INTEGER NOT NULL,
+    name VARCHAR(100000) NOT NULL,
+    hp INTEGER NOT NULL,
+    atk INTEGER NOT NULL,
+    def INTEGER NOT NULL,
+    spatk INTEGER NOT NULL,
+    spdef INTEGER NOT NULL,
+    spe INTEGER NOT NULL   
+);
+
