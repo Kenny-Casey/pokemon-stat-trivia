@@ -80,13 +80,16 @@ class Page extends Component{
     };
     render(){
         return(
-           <div>
+           <Container>
+            <div class="control-pannel">
+                <Row>Control Pannel</Row>
+            </div>
             <Row> Current Score: {this.state.score}</Row>
             <PokemonItem pokemon={this.state.current_pokemon} getNewPokemon={this.getPokemon} checkGuess={this.checkGuess} isDisabled={this.state.isDisabled}></PokemonItem>
             <Row>Guesses Left: {this.state.guesses}</Row>
             <Row style={{visibility:this.state.isCorrect}}>{this.state.guess_text}</Row>
             <Row style={{visibility:this.state.answer}}>The answer was {this.state.current_pokemon[0]}</Row>
-           </div>
+           </Container>
            
         );
     };

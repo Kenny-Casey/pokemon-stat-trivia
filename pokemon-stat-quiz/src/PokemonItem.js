@@ -11,13 +11,17 @@ class PokemonItem extends Component{
 
 
     }
-
+    handleSubmit=(event)=>{
+        event.preventDefault();
+        this.checkGuess();
+    }
     getNewPokemon=()=>{
         this.props.getNewPokemon();
     }
 
     checkGuess=()=>{
         this.props.checkGuess(this.state.guess)
+        this.setState({guess:""})
     }
     updateGuess = (input) =>
     {
@@ -47,9 +51,9 @@ class PokemonItem extends Component{
         return(
             <Row>
                 {this.processContent()}
-                <Form>
+                <Form onSubmit={this.handleSubmit}>
                     <Input onChange={this.updateGuess} value={this.state.guess} />
-                    <Button onClick={()=>this.checkGuess()} disabled={this.props.isDisabled}>Submit</Button>
+                    <Button type="submit" disabled={this.props.isDisabled}>Submit</Button>
                 </Form>
                 <Button onClick={()=>this.getNewPokemon()}>Next</Button>
             </Row>
