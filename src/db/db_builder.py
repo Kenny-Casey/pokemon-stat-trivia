@@ -33,18 +33,32 @@ def rebuild_tables():
 
 
 def random_pokemon():
-    random_index=random.randrange(1,1294)
-    select_sql="SELECT name,hp,atk,def,spatk,spdef,spe FROM pokemon_table WHERE pokemon_table.id=%s"
-    data=(random_index,)
-    return exec_get_all(select_sql,data)
+    select_sql="SELECT name,hp,atk,def,spatk,spdef,spe FROM pokemon_table"
+    pokemon=exec_get_all(select_sql)
+    length=len(pokemon)
+    random_index=random.randrange(0,length-1)
+    return pokemon[random_index]
 
 
 def check_guess(pokemon,guess):
-    answer=pokemon[0][0]
+    answer=pokemon[0]
     if(answer.lower()==guess.lower()):
         return "Correct!"
     else:
-        return "Incorrect! The Correct Answer Was "+pokemon[0][0]
+        return "Incorrect! The Correct Answer Was "+pokemon[0]
+    
 
+# def seed_finder():
+#     seed=0
+#     while True:
+#         random.seed(seed)
+#         pokemon=random_pokemon()[0]
+#         print(pokemon)
+#         if(pokemon=="Volcarona"):
+#             print(seed)
+#             break
+#         seed=seed+1
+
+# seed_finder()
 
 

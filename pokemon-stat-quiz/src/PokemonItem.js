@@ -18,18 +18,16 @@ class PokemonItem extends Component{
     processContent = () =>{
         if((this.props.pokemon != null) && (this.props.pokemon.length > 0)){
             return(
-                this.props.pokemon.map(item =>
-                    <div className="pokemon" id={item[0]}>
-                        <p key={item[0]}>Name: {item[0]}</p>
-                        <p key={item[0]}>HP: {item[1]}</p>
-                        <p key={item[0]}>ATK: {item[2]}</p>
-                        <p key={item[0]} > DEF: {item[3]}</p>
-                        <p key={item[0]} > SP.ATK: {item[4]}</p>
-                        <p key={item[0]} > SP.DEF: {item[5]}</p>
-                        <p key={item[0]} > SPE: {item[6]}</p>
-                        <Button onClick={()=>this.getNewPokemon()}>Next</Button>
-                    </div>
-                )
+                <div className="pokemon" id={this.props.pokemon[0]}>
+                    <p key={this.props.pokemon[0]}>Name: {this.props.pokemon[0]}</p>
+                    <p key={this.props.pokemon[0]}>HP: {this.props.pokemon[1]}</p>
+                    <p key={this.props.pokemon[0]}>ATK: {this.props.pokemon[2]}</p>
+                    <p key={this.props.pokemon[0]} > DEF: {this.props.pokemon[3]}</p>
+                    <p key={this.props.pokemon[0]} > SP.ATK: {this.props.pokemon[4]}</p>
+                    <p key={this.props.pokemon[0]} > SP.DEF: {this.props.pokemon[5]}</p>
+                    <p key={this.props.pokemon[0]} > SPE: {this.props.pokemon[6]}</p>
+                    <Button onClick={()=>this.getNewPokemon()}>Next</Button>
+                </div>
             );
         }
         else{
