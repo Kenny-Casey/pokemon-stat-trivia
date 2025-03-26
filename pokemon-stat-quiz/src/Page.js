@@ -5,10 +5,45 @@ class Page extends Component{
     constructor(props)
     {
         super(props);
-        this.state = {current_pokemon: []};
+        this.state = {current_pokemon: [],
+            showAnswer:false,
+            isCorrect: "hidden",
+            score: 0,
+            isDisabled: false,
+            guesses:5,
+            guess_text: "Incorrect!",
+            answer:"hidden"
+        };
     }
+
     updatePokemon=(apiResponse)=>{
         this.setState({current_pokemon:apiResponse});
+        this.setState({isCorrect:"hidden"})
+        this.setState({answer:"hidden"})
+        this.setState({guesses:5})
+    }
+
+    checkGuess=(guess)=>{
+        const answer=this.state.current_pokemon[0].toLowerCase()
+        if(answer==guess.toLowerCase()){
+            var new_score=this.state.score+1
+            this.setState({score:new_score})
+            this.setState({isCorrect:"visible"})
+            this.setState({answer:"visible"})
+            this.setState({isDisabled:true})
+            this.setState({guess_text:"Correct!"})
+        }
+        else{
+            this.setState({guess_text:"Incorrect!"})
+            this.setState({isCorrect:"visible"})
+            var guesses_left=this.state.guesses-1
+            this.setState({guesses:guesses_left})
+            if(guesses_left==0){
+                this.setState({isDisabled:true})
+                this.setState({answer:"visible"})
+            }
+        }
+        
     }
     getPokemon=()=>{
         fetch('http://localhost:5000/pokemon')
@@ -18,6 +53,7 @@ class Page extends Component{
             if (response.status === 200)
             {
               this.setState({current_pokemon:[]});
+              this.setState({isDisabled:false})
               return (response.json());
             }
             else
@@ -45,7 +81,11 @@ class Page extends Component{
     render(){
         return(
            <div>
-            <PokemonItem pokemon={this.state.current_pokemon} getNewPokemon={this.getPokemon}></PokemonItem>
+            <Row> Current Score: {this.state.score}</Row>
+            <PokemonItem pokemon={this.state.current_pokemon} getNewPokemon={this.getPokemon} checkGuess={this.checkGuess} isDisabled={this.state.isDisabled}></PokemonItem>
+            <Row>Guesses Left: {this.state.guesses}</Row>
+            <Row style={{visibility:this.state.isCorrect}}>{this.state.guess_text}</Row>
+            <Row style={{visibility:this.state.answer}}>The answer was {this.state.current_pokemon[0]}</Row>
            </div>
            
         );
