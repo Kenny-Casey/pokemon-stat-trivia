@@ -33,7 +33,6 @@ class Page extends Component{
     handleEvolutionRadioButton=(value)=>{
         this.setState({fully_evoled:value})
         this.setState({guess_text:"Incorrect!"})
-        this.setState({isCorrect:"visible"})
         this.setState({isDisabled:true})
         this.setState({answer:"visible"})
     }
