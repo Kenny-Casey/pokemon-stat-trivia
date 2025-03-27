@@ -32,6 +32,10 @@ class Page extends Component{
 
     handleEvolutionRadioButton=(value)=>{
         this.setState({fully_evoled:value})
+        this.setState({guess_text:"Incorrect!"})
+        this.setState({isCorrect:"visible"})
+        this.setState({isDisabled:true})
+        this.setState({answer:"visible"})
     }
     checkGuess=(guess)=>{
         const answer=this.state.current_pokemon[0].toLowerCase()
