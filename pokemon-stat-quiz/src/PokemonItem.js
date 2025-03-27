@@ -30,8 +30,9 @@ class PokemonItem extends Component{
     processContent = () =>{
         if((this.props.pokemon != null) && (this.props.pokemon.length > 0)){
             return(
-                <Card className="pokemon" id={this.props.pokemon[0]}>
+                <Card className="pokemon">
                     <CardBody>
+                        {/* <p>Name: {this.props.pokemon[0]} </p> */}
                         <p>HP: {this.props.pokemon[1]}</p>
                         <p>ATK: {this.props.pokemon[2]}</p>
                         <p>DEF: {this.props.pokemon[3]}</p>

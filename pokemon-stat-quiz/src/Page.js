@@ -12,9 +12,10 @@ class Page extends Component{
             isDisabled: false,
             guesses:5,
             guess_text: "Incorrect!",
-            answer:"hidden",
+            answer_visibility:"hidden",
             bst_visible: "visible",
-            fully_evoled:"Both"
+            fully_evoled:"Both",
+            answer: ""
 
         };
     }
@@ -22,8 +23,9 @@ class Page extends Component{
     updatePokemon=(apiResponse)=>{
         this.setState({current_pokemon:apiResponse});
         this.setState({isCorrect:"hidden"})
-        this.setState({answer:"hidden"})
+        this.setState({answer_visibility:"hidden"})
         this.setState({guesses:5})
+        this.setState({answer:""})
     }
     
     handleVisibleRadioButton=(value)=>{
@@ -32,17 +34,19 @@ class Page extends Component{
 
     handleEvolutionRadioButton=(value)=>{
         this.setState({fully_evoled:value})
-        this.setState({guess_text:"Incorrect!"})
+        this.setState({answer:this.state.current_pokemon[0]})
         this.setState({isDisabled:true})
-        this.setState({answer:"visible"})
+        this.setState({answer_visibility:"visible"})
+        
     }
     checkGuess=(guess)=>{
         const answer=this.state.current_pokemon[0].toLowerCase()
         if(answer===guess.toLowerCase()){
             var new_score=this.state.score+1
             this.setState({score:new_score})
+            this.setState({answer:this.state.current_pokemon[0]})
             this.setState({isCorrect:"visible"})
-            this.setState({answer:"visible"})
+            this.setState({answer_visibility:"visible"})
             this.setState({isDisabled:true})
             this.setState({guess_text:"Correct!"})
         }
@@ -52,8 +56,9 @@ class Page extends Component{
             var guesses_left=this.state.guesses-1
             this.setState({guesses:guesses_left})
             if(guesses_left===0){
+                this.setState({answer:this.state.current_pokemon[0]})
                 this.setState({isDisabled:true})
-                this.setState({answer:"visible"})
+                this.setState({answer_visibility:"visible"})
             }
         }
         
@@ -116,7 +121,7 @@ class Page extends Component{
             <PokemonItem pokemon={this.state.current_pokemon} getNewPokemon={this.getPokemon} checkGuess={this.checkGuess} isDisabled={this.state.isDisabled} bstVisbile={this.state.bst_visible}></PokemonItem>
             <Row>Guesses Left: {this.state.guesses}</Row>
             <Row style={{visibility:this.state.isCorrect}}>{this.state.guess_text}</Row>
-            <Row style={{visibility:this.state.answer}}>The answer was {this.state.current_pokemon[0]}</Row>
+            <Row style={{visibility:this.state.answer_visibility}}>The answer was: {this.state.answer}</Row>
            </Container>
            
         );
