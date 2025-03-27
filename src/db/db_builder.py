@@ -1,6 +1,6 @@
 import csv
 import random
-from .db_utils import *
+from db_utils import *
 
 def rebuild_tables():
     conn = connect()
