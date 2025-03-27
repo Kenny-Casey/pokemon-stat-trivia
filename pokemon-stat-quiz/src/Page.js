@@ -13,7 +13,8 @@ class Page extends Component{
             guesses:5,
             guess_text: "Incorrect!",
             answer:"hidden",
-            bst_visible: "visible"
+            bst_visible: "visible",
+            fully_evoled:"Both"
 
         };
     }
@@ -25,8 +26,12 @@ class Page extends Component{
         this.setState({guesses:5})
     }
     
-    handleRadioButton=(value)=>{
+    handleVisibleRadioButton=(value)=>{
         this.setState({bst_visible:value})
+    }
+
+    handleEvolutionRadioButton=(value)=>{
+        this.setState({fully_evoled:value})
     }
     checkGuess=(guess)=>{
         const answer=this.state.current_pokemon[0].toLowerCase()
@@ -51,7 +56,8 @@ class Page extends Component{
         
     }
     getPokemon=()=>{
-        fetch('http://localhost:5000/pokemon')
+        const url='http://localhost:5000/pokemon/'+this.state.fully_evoled
+        fetch(url)
         .then(
           (response) => 
           {
@@ -88,11 +94,20 @@ class Page extends Component{
            <Container>
             <div class="control-pannel">
                 <Row>Control Pannel</Row>
-                <div>Show BST</div>
-                <Input type="radio" id="bstOn" value="visible" checked={this.state.bst_visible === "visible"} onChange={()=>this.handleRadioButton("visible")}></Input>
-                <Label for="bstOn">Yes</Label>
-                <Input type="radio" id="bstOff" value="hidden" checked={this.state.bst_visible === "hidden"} onChange={()=>this.handleRadioButton("hidden")}></Input>
-                <Label for="bstOff">No</Label>
+                <div>Show BST
+                    <Input type="radio" id="bstOn" value="visible" checked={this.state.bst_visible === "visible"} onChange={()=>this.handleVisibleRadioButton("visible")}></Input>
+                    <Label for="bstOn">Yes</Label>
+                    <Input type="radio" id="bstOff" value="hidden" checked={this.state.bst_visible === "hidden"} onChange={()=>this.handleVisibleRadioButton("hidden")}></Input>
+                    <Label for="bstOff">No</Label>
+                </div>
+                <div>Evolution Stage:
+                    <Input type="radio" id="fullyEvolvedYes" value="Yes" checked={this.state.fully_evoled === "Yes"} onChange={()=>this.handleEvolutionRadioButton("Yes")}></Input>
+                    <Label for="fullyEvolvedYes">Fully Evolved</Label>
+                    <Input type="radio" id="fullyEvolvedNo" value="No" checked={this.state.fully_evoled === "No"} onChange={()=>this.handleEvolutionRadioButton("No")}></Input>
+                    <Label for="fullyEvolvedNo">Not Fully Evolved</Label>
+                    <Input type="radio" id="fullyEvolvedBoth" value="Both" checked={this.state.fully_evoled === "Both"} onChange={()=>this.handleEvolutionRadioButton("Both")}></Input>
+                    <Label for="fullyEvolvedBoth">Both</Label>
+                </div>
             </div>
             <Row> Current Score: {this.state.score}</Row>
             <PokemonItem pokemon={this.state.current_pokemon} getNewPokemon={this.getPokemon} checkGuess={this.checkGuess} isDisabled={this.state.isDisabled} bstVisbile={this.state.bst_visible}></PokemonItem>
