@@ -1,6 +1,6 @@
 import csv
 import random
-from db_utils import *
+from .db_utils import *
 
 def rebuild_tables():
     conn = connect()
@@ -72,6 +72,6 @@ def check_guess(pokemon,guess):
 
 # seed_finder()
 
-
+#rebuild_tables()
 
 
