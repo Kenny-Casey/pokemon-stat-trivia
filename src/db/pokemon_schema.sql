@@ -8,6 +8,7 @@ CREATE TABLE pokemon_table(
     spatk INTEGER NOT NULL,
     spdef INTEGER NOT NULL,
     spe INTEGER NOT NULL,
-    bst INTEGER NOT NULL   
+    bst INTEGER NOT NULL,
+    fully_evolved VARCHAR(50) NOT NULL
 );
 

@@ -8,8 +8,8 @@ CORS(app)
 api = Api(app) 
 
 
-api.add_resource(GetPokemon, '/pokemon')
-api.add_resource(GetPokemonWithSeed, '/pokemon/<int:seed>')
+api.add_resource(GetPokemon, '/pokemon/<string:fully_evolved>')
+api.add_resource(GetPokemonWithSeed, '/pokemon/<int:seed>//<string:fully_evolved>')
 
 if __name__ == '__main__':
     app.run(debug=True)

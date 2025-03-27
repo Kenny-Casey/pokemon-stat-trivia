@@ -26,19 +26,29 @@ def rebuild_tables():
                 spdef=int(row[13])
                 spe=int(row[14])
                 bst=int(row[15])
-                insert_sql="""INSERT INTO pokemon_table(dex_number,name,hp,atk,def,spatk,spdef,spe,bst) VALUES
-                    (%s,%s,%s,%s,%s,%s,%s,%s,%s);"""
-                data=(id,name,hp,atk,defs,spatk,spdef,spe,bst)
+                fully_evolved=row[20]
+                insert_sql="""INSERT INTO pokemon_table(dex_number,name,hp,atk,def,spatk,spdef,spe,bst,fully_evolved) VALUES
+                    (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);"""
+                data=(id,name,hp,atk,defs,spatk,spdef,spe,bst,fully_evolved)
                 exec_commit(insert_sql,data)
     
 
 
-def random_pokemon():
-    select_sql="SELECT name,hp,atk,def,spatk,spdef,spe,bst FROM pokemon_table"
-    pokemon=exec_get_all(select_sql)
-    length=len(pokemon)
-    random_index=random.randrange(0,length-1)
-    return pokemon[random_index]
+def random_pokemon(fully_evolved):
+    if(fully_evolved=="Both"):
+        select_sql="SELECT name,hp,atk,def,spatk,spdef,spe,bst,fully_evolved FROM pokemon_table"
+        pokemon=exec_get_all(select_sql)
+        length=len(pokemon)
+        random_index=random.randrange(0,length-1)
+        return pokemon[random_index]
+    else:
+        select_sql="SELECT name,hp,atk,def,spatk,spdef,spe,bst,fully_evolved FROM pokemon_table WHERE pokemon_table.fully_evolved=%s"
+        data=(fully_evolved,)
+        pokemon=exec_get_all(select_sql,data)
+        length=len(pokemon)
+        random_index=random.randrange(0,length-1)
+        return pokemon[random_index]
+
 
 
 def check_guess(pokemon,guess):
@@ -61,5 +71,7 @@ def check_guess(pokemon,guess):
 #         seed=seed+1
 
 # seed_finder()
+
+
 
 
