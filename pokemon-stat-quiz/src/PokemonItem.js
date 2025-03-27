@@ -38,6 +38,7 @@ class PokemonItem extends Component{
                         <p>SP.ATK: {this.props.pokemon[4]}</p>
                         <p>SP.DEF: {this.props.pokemon[5]}</p>
                         <p>SPE: {this.props.pokemon[6]}</p>
+                        <p style={{visibility:this.props.bstVisbile}}>BST: {this.props.pokemon[7]}</p>
                     </CardBody>
                 </Card>
             );

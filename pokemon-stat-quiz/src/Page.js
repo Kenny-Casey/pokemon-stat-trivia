@@ -12,7 +12,9 @@ class Page extends Component{
             isDisabled: false,
             guesses:5,
             guess_text: "Incorrect!",
-            answer:"hidden"
+            answer:"hidden",
+            bst_visible: "visible"
+
         };
     }
 
@@ -22,10 +24,13 @@ class Page extends Component{
         this.setState({answer:"hidden"})
         this.setState({guesses:5})
     }
-
+    
+    handleRadioButton=(value)=>{
+        this.setState({bst_visible:value})
+    }
     checkGuess=(guess)=>{
         const answer=this.state.current_pokemon[0].toLowerCase()
-        if(answer==guess.toLowerCase()){
+        if(answer===guess.toLowerCase()){
             var new_score=this.state.score+1
             this.setState({score:new_score})
             this.setState({isCorrect:"visible"})
@@ -38,7 +43,7 @@ class Page extends Component{
             this.setState({isCorrect:"visible"})
             var guesses_left=this.state.guesses-1
             this.setState({guesses:guesses_left})
-            if(guesses_left==0){
+            if(guesses_left===0){
                 this.setState({isDisabled:true})
                 this.setState({answer:"visible"})
             }
@@ -83,9 +88,14 @@ class Page extends Component{
            <Container>
             <div class="control-pannel">
                 <Row>Control Pannel</Row>
+                <div>Show BST</div>
+                <Input type="radio" id="bstOn" value="visible" checked={this.state.bst_visible === "visible"} onChange={()=>this.handleRadioButton("visible")}></Input>
+                <Label for="bstOn">Yes</Label>
+                <Input type="radio" id="bstOff" value="hidden" checked={this.state.bst_visible === "hidden"} onChange={()=>this.handleRadioButton("hidden")}></Input>
+                <Label for="bstOff">No</Label>
             </div>
             <Row> Current Score: {this.state.score}</Row>
-            <PokemonItem pokemon={this.state.current_pokemon} getNewPokemon={this.getPokemon} checkGuess={this.checkGuess} isDisabled={this.state.isDisabled}></PokemonItem>
+            <PokemonItem pokemon={this.state.current_pokemon} getNewPokemon={this.getPokemon} checkGuess={this.checkGuess} isDisabled={this.state.isDisabled} bstVisbile={this.state.bst_visible}></PokemonItem>
             <Row>Guesses Left: {this.state.guesses}</Row>
             <Row style={{visibility:this.state.isCorrect}}>{this.state.guess_text}</Row>
             <Row style={{visibility:this.state.answer}}>The answer was {this.state.current_pokemon[0]}</Row>

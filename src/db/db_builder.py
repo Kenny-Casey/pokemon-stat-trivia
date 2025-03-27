@@ -25,15 +25,16 @@ def rebuild_tables():
                 spatk=int(row[12])
                 spdef=int(row[13])
                 spe=int(row[14])
-                insert_sql="""INSERT INTO pokemon_table(dex_number,name,hp,atk,def,spatk,spdef,spe) VALUES
-                    (%s,%s,%s,%s,%s,%s,%s,%s);"""
-                data=(id,name,hp,atk,defs,spatk,spdef,spe)
+                bst=int(row[15])
+                insert_sql="""INSERT INTO pokemon_table(dex_number,name,hp,atk,def,spatk,spdef,spe,bst) VALUES
+                    (%s,%s,%s,%s,%s,%s,%s,%s,%s);"""
+                data=(id,name,hp,atk,defs,spatk,spdef,spe,bst)
                 exec_commit(insert_sql,data)
     
 
 
 def random_pokemon():
-    select_sql="SELECT name,hp,atk,def,spatk,spdef,spe FROM pokemon_table"
+    select_sql="SELECT name,hp,atk,def,spatk,spdef,spe,bst FROM pokemon_table"
     pokemon=exec_get_all(select_sql)
     length=len(pokemon)
     random_index=random.randrange(0,length-1)

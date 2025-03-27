@@ -7,6 +7,7 @@ CREATE TABLE pokemon_table(
     def INTEGER NOT NULL,
     spatk INTEGER NOT NULL,
     spdef INTEGER NOT NULL,
-    spe INTEGER NOT NULL   
+    spe INTEGER NOT NULL,
+    bst INTEGER NOT NULL   
 );
 
