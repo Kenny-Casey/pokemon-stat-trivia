@@ -20,21 +20,28 @@ class PokemonItem extends Component{
         return stat+"px"
     }
 
-    getHpColor=(stat)=>{
-        if(stat===1){
-            return "hsl(0,85%,45%)"
-        }
-        else{
-            var total_stat=Math.floor((2*stat+31))+100+10
+    getHpColor=(stat,type)=>{
+        var total_stat=Math.floor((2*stat+31))+100+10
+        if(stat!==1){
             var first_color=Math.ceil(total_stat/4)
+        }
+        if(type==="background"){
             return "hsl("+first_color+",85%,45%)"
+        }
+        if(type==="border"){
+            return "hsl("+first_color+",85%,35%)"
         }
     }
     
-    getOtherStatColor=(stat)=>{
+    getOtherStatColor=(stat,type)=>{
         var total_stat=Math.floor((2*stat+31))+5
         var first_color=Math.ceil(total_stat/4)
-        return "hsl("+first_color+",85%,45%)"
+        if(type==="background"){
+            return "hsl("+first_color+",85%,45%)"
+        }
+        if(type==="border"){
+            return "hsl("+first_color+",85%,35%)"
+        }
     }
     getNewPokemon=()=>{
         this.props.getNewPokemon();
@@ -53,7 +60,7 @@ class PokemonItem extends Component{
             return(
                 <Card className="pokemon">
                     <CardBody>
-                        <p>Name: {this.props.pokemon[0]} </p> 
+                        {/* <p>Name: {this.props.pokemon[0]} </p>  */}
                         <Container>
                             <Row className='stats'>
                                 <Col className='col'>
@@ -83,17 +90,17 @@ class PokemonItem extends Component{
                                     <Row>{this.props.pokemon[6]}</Row>
                                 </Col>
                                 <Col className='col'>
-                                    <Row style={{width:this.getSize(this.props.pokemon[1]),backgroundColor:this.getHpColor(this.props.pokemon[1]),color:this.getHpColor(this.props.pokemon[1])}}>.</Row>
+                                    <Row className="stat-row" style={{width:this.getSize(this.props.pokemon[1]),backgroundColor:this.getHpColor(this.props.pokemon[1],"background"),borderColor:this.getHpColor(this.props.pokemon[1],"border")}}></Row>
                                     <br></br>
-                                    <Row style={{width:this.getSize(this.props.pokemon[2]),backgroundColor:this.getOtherStatColor(this.props.pokemon[2]),color:this.getOtherStatColor(this.props.pokemon[2])}}>.</Row>
+                                    <Row className="stat-row" style={{width:this.getSize(this.props.pokemon[2]),backgroundColor:this.getOtherStatColor(this.props.pokemon[2],"background"),borderColor:this.getOtherStatColor(this.props.pokemon[2],"border")}}></Row>
                                     <br></br>
-                                    <Row style={{width:this.getSize(this.props.pokemon[3]),backgroundColor:this.getOtherStatColor(this.props.pokemon[3]),color:this.getOtherStatColor(this.props.pokemon[3])}}>.</Row>
+                                    <Row className="stat-row" style={{width:this.getSize(this.props.pokemon[3]),backgroundColor:this.getOtherStatColor(this.props.pokemon[3],"background"),borderColor:this.getOtherStatColor(this.props.pokemon[3],"border")}}></Row>
                                     <br></br>
-                                    <Row style={{width:this.getSize(this.props.pokemon[4]),backgroundColor:this.getOtherStatColor(this.props.pokemon[4]),color:this.getOtherStatColor(this.props.pokemon[4])}}>.</Row>
+                                    <Row className="stat-row" style={{width:this.getSize(this.props.pokemon[4]),backgroundColor:this.getOtherStatColor(this.props.pokemon[4],"background"),borderColor:this.getOtherStatColor(this.props.pokemon[4],"border")}}></Row>
                                     <br></br>
-                                    <Row style={{width:this.getSize(this.props.pokemon[5]),backgroundColor:this.getOtherStatColor(this.props.pokemon[5]),color:this.getOtherStatColor(this.props.pokemon[5])}}>.</Row>
+                                    <Row className="stat-row" style={{width:this.getSize(this.props.pokemon[5]),backgroundColor:this.getOtherStatColor(this.props.pokemon[5],"background"),borderColor:this.getOtherStatColor(this.props.pokemon[5],"border")}}></Row>
                                     <br></br>
-                                    <Row style={{width:this.getSize(this.props.pokemon[6]),backgroundColor:this.getOtherStatColor(this.props.pokemon[6]),color:this.getOtherStatColor(this.props.pokemon[6])}}>.</Row>
+                                    <Row className="stat-row" style={{width:this.getSize(this.props.pokemon[6]),backgroundColor:this.getOtherStatColor(this.props.pokemon[6],"background"),borderColor:this.getOtherStatColor(this.props.pokemon[6],"border")}}></Row>
                                 </Col>
                             </Row> 
                         </Container>

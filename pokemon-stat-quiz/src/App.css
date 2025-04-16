@@ -37,13 +37,22 @@
   margin-left: 10px;
 
 }
+.stat-row{
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  height:80%;
+  margin-top: 3.2px;
+}
 .App-link {
   color: #61dafb;
 }
 
 .control-pannel{
   border: 5px double black;
-  margin: 3vh 30vw 3vh 30vw;
+  padding: .5em 1em;
+  position: relative;
+  margin: 0 auto;
+  max-width: 40em;
 }
 @keyframes App-logo-spin {
   from {
