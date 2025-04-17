@@ -15,7 +15,8 @@ class Page extends Component{
             answer_visibility:"hidden",
             bst_visible: "visible",
             fully_evoled:"Both",
-            answer: ""
+            answer: "",
+            previous_guess:""
 
         };
     }
@@ -26,6 +27,7 @@ class Page extends Component{
         this.setState({answer_visibility:"hidden"})
         this.setState({guesses:5})
         this.setState({answer:""})
+        this.setState({previous_guess:""})
     }
     
     handleVisibleRadioButton=(value)=>{
@@ -41,13 +43,15 @@ class Page extends Component{
     }
     checkGuess=(guess)=>{
         const answer=this.state.current_pokemon[0].toLowerCase()
-        if(answer===guess.toLowerCase()){
+        const guess_reformatted=guess.toLowerCase().trim().split(" ").join("-")
+        if(answer===guess_reformatted){
             var new_score=this.state.score+1
             this.setState({score:new_score})
             this.setState({answer:this.state.current_pokemon[0]})
             this.setState({isCorrect:"visible"})
             this.setState({answer_visibility:"visible"})
             this.setState({isDisabled:true})
+            this.setState({previous_guess:""})
             this.setState({guess_text:"Correct!"})
         }
         else{
@@ -55,6 +59,8 @@ class Page extends Component{
             this.setState({isCorrect:"visible"})
             var guesses_left=this.state.guesses-1
             this.setState({guesses:guesses_left})
+            const prev_guess="Previous Guess: "+guess
+            this.setState({previous_guess:prev_guess})
             if(guesses_left===0){
                 this.setState({answer:this.state.current_pokemon[0]})
                 this.setState({isDisabled:true})
@@ -119,6 +125,7 @@ class Page extends Component{
             </div>
             <Row> Current Score: {this.state.score}</Row>
             <PokemonItem pokemon={this.state.current_pokemon} getNewPokemon={this.getPokemon} checkGuess={this.checkGuess} isDisabled={this.state.isDisabled} bstVisbile={this.state.bst_visible}></PokemonItem>
+            <Row>{this.state.previous_guess}</Row>
             <Row>Guesses Left: {this.state.guesses}</Row>
             <Row style={{visibility:this.state.isCorrect}}>{this.state.guess_text}</Row>
             <Row style={{visibility:this.state.answer_visibility}}>The answer was: {this.state.answer}</Row>

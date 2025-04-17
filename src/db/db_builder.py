@@ -63,9 +63,9 @@ def check_guess(pokemon,guess):
 #     seed=0
 #     while True:
 #         random.seed(seed)
-#         pokemon=random_pokemon()[0]
+#         pokemon=random_pokemon("Yes")[0]
 #         print(pokemon)
-#         if(pokemon=="Volcarona"):
+#         if(pokemon=="Landorus-Therian"):
 #             print(seed)
 #             break
 #         seed=seed+1
