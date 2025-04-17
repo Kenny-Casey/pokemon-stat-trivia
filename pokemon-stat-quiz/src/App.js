@@ -4,7 +4,7 @@ import Page from './Page';
 function App() {
   return (
     <div className="App">
-      <h1>Pokemon Stat Quiz</h1>
+      <h1>Pokémon Stat Quiz</h1>
       <Page></Page>
     </div>
   );

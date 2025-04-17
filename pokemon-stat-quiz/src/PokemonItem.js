@@ -22,6 +22,7 @@ class PokemonItem extends Component{
 
     getHpColor=(stat,type)=>{
         var total_stat=Math.floor((2*stat+31))+100+10
+        var first_color=0
         if(stat!==1){
             var first_color=Math.ceil(total_stat/4)
         }

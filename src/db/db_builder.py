@@ -59,16 +59,16 @@ def check_guess(pokemon,guess):
         return "Incorrect! The Correct Answer Was "+pokemon[0]
     
 
-# def seed_finder():
-#     seed=0
-#     while True:
-#         random.seed(seed)
-#         pokemon=random_pokemon("Yes")[0]
-#         print(pokemon)
-#         if(pokemon=="Landorus-Therian"):
-#             print(seed)
-#             break
-#         seed=seed+1
+def seed_finder():
+    seed=0
+    while True:
+        random.seed(seed)
+        pokemon=random_pokemon("Yes")[0]
+        print(pokemon)
+        if(pokemon=="Shedinja"):
+            print(seed)
+            break
+        seed=seed+1
 
 # seed_finder()
 
