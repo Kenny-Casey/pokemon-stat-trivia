@@ -7,7 +7,6 @@ class Page extends Component{
         super(props);
         this.state = {current_pokemon: [],
             showAnswer:false,
-            isCorrect: "hidden",
             score: 0,
             isDisabled: false,
             guesses:5,
@@ -23,11 +22,11 @@ class Page extends Component{
 
     updatePokemon=(apiResponse)=>{
         this.setState({current_pokemon:apiResponse});
-        this.setState({isCorrect:"hidden"})
         this.setState({answer_visibility:"hidden"})
         this.setState({guesses:5})
         this.setState({answer:""})
         this.setState({previous_guess:""})
+        this.setState({guess_text:""})
     }
     
     handleVisibleRadioButton=(value)=>{
@@ -39,16 +38,25 @@ class Page extends Component{
         this.setState({answer:this.state.current_pokemon[0]})
         this.setState({isDisabled:true})
         this.setState({answer_visibility:"visible"})
+        this.setState({guess_text:""})
         
     }
     checkGuess=(guess)=>{
         const answer=this.state.current_pokemon[0].toLowerCase()
         const guess_reformatted=guess.toLowerCase().trim().split(" ").join("-")
-        if(answer===guess_reformatted){
+        if(answer===guess.toLowerCase().trim()){
             var new_score=this.state.score+1
             this.setState({score:new_score})
             this.setState({answer:this.state.current_pokemon[0]})
-            this.setState({isCorrect:"visible"})
+            this.setState({answer_visibility:"visible"})
+            this.setState({isDisabled:true})
+            this.setState({previous_guess:""})
+            this.setState({guess_text:"Correct!"})
+        }
+        else if(answer===guess_reformatted){
+            var new_score=this.state.score+1
+            this.setState({score:new_score})
+            this.setState({answer:this.state.current_pokemon[0]})
             this.setState({answer_visibility:"visible"})
             this.setState({isDisabled:true})
             this.setState({previous_guess:""})
@@ -56,7 +64,6 @@ class Page extends Component{
         }
         else{
             this.setState({guess_text:"Incorrect!"})
-            this.setState({isCorrect:"visible"})
             var guesses_left=this.state.guesses-1
             this.setState({guesses:guesses_left})
             const prev_guess="Previous Guess: "+guess
@@ -127,7 +134,7 @@ class Page extends Component{
             <PokemonItem pokemon={this.state.current_pokemon} getNewPokemon={this.getPokemon} checkGuess={this.checkGuess} isDisabled={this.state.isDisabled} bstVisbile={this.state.bst_visible}></PokemonItem>
             <Row>{this.state.previous_guess}</Row>
             <Row>Guesses Left: {this.state.guesses}</Row>
-            <Row style={{visibility:this.state.isCorrect}}>{this.state.guess_text}</Row>
+            <Row>{this.state.guess_text}</Row>
             <Row style={{visibility:this.state.answer_visibility}}>The answer was: {this.state.answer}</Row>
            </Container>
            
