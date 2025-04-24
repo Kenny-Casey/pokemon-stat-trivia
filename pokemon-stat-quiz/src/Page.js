@@ -10,23 +10,24 @@ class Page extends Component{
             score: 0,
             isDisabled: false,
             guesses:5,
+            max_guesses: 5,
             guess_text: "Incorrect!",
             answer_visibility:"hidden",
             bst_visible: "visible",
-            fully_evoled:"Both",
+            fully_evolved:"Both",
             answer: "",
             previous_guess:""
-
         };
     }
 
     updatePokemon=(apiResponse)=>{
         this.setState({current_pokemon:apiResponse});
         this.setState({answer_visibility:"hidden"})
-        this.setState({guesses:5})
+        this.setState({guesses:this.state.max_guesses})
         this.setState({answer:""})
         this.setState({previous_guess:""})
         this.setState({guess_text:""})
+        this.setState({guess_button_disabled:false})
     }
     
     handleVisibleRadioButton=(value)=>{
@@ -34,13 +35,24 @@ class Page extends Component{
     }
 
     handleEvolutionRadioButton=(value)=>{
-        this.setState({fully_evoled:value})
+        this.setState({fully_evolved:value})
         this.setState({answer:this.state.current_pokemon[0]})
         this.setState({isDisabled:true})
         this.setState({answer_visibility:"visible"})
         this.setState({guess_text:""})
         
     }
+
+    handleGuessesRadioButton=(value)=>{
+        this.setState({max_guesses:value})
+    }
+
+    handleGiveUpButton=()=>{
+        this.setState({answer:this.state.current_pokemon[0]})
+        this.setState({isDisabled:true})
+        this.setState({answer_visibility:"visible"})
+    }
+
     checkGuess=(guess)=>{
         const answer=this.state.current_pokemon[0].toLowerCase()
         const guess_reformatted=guess.toLowerCase().trim().split(" ").join("-")
@@ -77,7 +89,7 @@ class Page extends Component{
         
     }
     getPokemon=()=>{
-        const url='http://localhost:5000/pokemon/'+this.state.fully_evoled
+        const url='http://localhost:5000/pokemon/'+this.state.fully_evolved
         fetch(url)
         .then(
           (response) => 
@@ -122,16 +134,29 @@ class Page extends Component{
                     <Label for="bstOff">No</Label>
                 </div>
                 <div>Evolution Stage:
-                    <Input type="radio" id="fullyEvolvedYes" value="Yes" checked={this.state.fully_evoled === "Yes"} onChange={()=>this.handleEvolutionRadioButton("Yes")}></Input>
+                    <Input type="radio" id="fullyEvolvedYes" value="Yes" checked={this.state.fully_evolved === "Yes"} onChange={()=>this.handleEvolutionRadioButton("Yes")}></Input>
                     <Label for="fullyEvolvedYes">Fully Evolved</Label>
-                    <Input type="radio" id="fullyEvolvedNo" value="No" checked={this.state.fully_evoled === "No"} onChange={()=>this.handleEvolutionRadioButton("No")}></Input>
+                    <Input type="radio" id="fullyEvolvedNo" value="No" checked={this.state.fully_evolved === "No"} onChange={()=>this.handleEvolutionRadioButton("No")}></Input>
                     <Label for="fullyEvolvedNo">Not Fully Evolved</Label>
-                    <Input type="radio" id="fullyEvolvedBoth" value="Both" checked={this.state.fully_evoled === "Both"} onChange={()=>this.handleEvolutionRadioButton("Both")}></Input>
+                    <Input type="radio" id="fullyEvolvedBoth" value="Both" checked={this.state.fully_evolved === "Both"} onChange={()=>this.handleEvolutionRadioButton("Both")}></Input>
                     <Label for="fullyEvolvedBoth">Both</Label>
+                </div>
+                <div># of Guesses (Takes effect next round):
+                    <Input type="radio" id="VeryHardMode" value="1" checked={this.state.max_guesses === 1} onChange={()=>this.handleGuessesRadioButton(1)}></Input>
+                    <Label for="VeryHardMode">1</Label>
+                    <Input type="radio" id="HardMode" value="3" checked={this.state.max_guesses === 3} onChange={()=>this.handleGuessesRadioButton(3)}></Input>
+                    <Label for="HardMode">3</Label>
+                    <Input type="radio" id="NormalMode" value="5" checked={this.state.max_guesses === 5} onChange={()=>this.handleGuessesRadioButton(5)}></Input>
+                    <Label for="NormalMode">5</Label>
+                    <Input type="radio" id="EasyMode" value="10" checked={this.state.max_guesses === 10} onChange={()=>this.handleGuessesRadioButton(10)}></Input>
+                    <Label for="EasyMode">10</Label>
+                    <Input type="radio" id="UnlimitedMode" value="9999" checked={this.state.max_guesses === 9999} onChange={()=>this.handleGuessesRadioButton(9999)}></Input>
+                    <Label for="UnlimitedMode">∞</Label>
                 </div>
             </div>
             <Row> Current Score: {this.state.score}</Row>
             <PokemonItem pokemon={this.state.current_pokemon} getNewPokemon={this.getPokemon} checkGuess={this.checkGuess} isDisabled={this.state.isDisabled} bstVisbile={this.state.bst_visible}></PokemonItem>
+            <Button onClick={()=>this.handleGiveUpButton()}>Give Up</Button>
             <Row>{this.state.previous_guess}</Row>
             <Row>Guesses Left: {this.state.guesses}</Row>
             <Row>{this.state.guess_text}</Row>
