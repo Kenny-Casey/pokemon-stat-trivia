@@ -13,5 +13,5 @@ I wanted to learn how to create stat bars with varying colors based on that stat
 This project was heavily inspired by this random Pokémon generator: https://randompokemon.com/
 I took on this project because I often manually hosted this game for my friends over the internet, where I would use this random Pokémon generator to generate a Pokémon, and then I would find that Pokémon's stats using Google and send a screenshot of those stats to said friends. I decided to take on this project because I wanted to use my coding skills to simplify the process so that I could generate the Pokémon and its stats all with the click of one button. The control panel for my website was directly inspired by the control panel from this website, as I associate that design with randomizing Pokémon in my head and wanted to have my game also capture that feeling.
 
-
+The db_utils file was provided to me for my University's Web Engineering class as starter code for our SQL database project. 
 
